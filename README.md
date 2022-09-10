@@ -33,7 +33,7 @@ This is a really simple auto staking bot based on the logic:
 > :warning: WARNING: KEEP YOUR NEMO PRIVATE!!!
 
 
-Create a .env file in the root folder of the project, with the following content:
+Create a *<code>.env</code>* file in the root folder of the project, with the following content:
 
 ```properties
 # Your wallet address
