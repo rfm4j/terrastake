@@ -116,7 +116,7 @@ async function main(){
     info("Scheduling every "+interval)
 
     setInterval(async function() {
-        await autoStake()
+        await autoStake(terra, botConfig)
       }, interval);
     
 }
