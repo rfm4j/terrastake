@@ -9,7 +9,7 @@ async function getWalletBalance(terra, botConfig){
     var rawBalance=balance[0]["_coins"]["uluna"].amount
     var humanReadableBalance=parseFloat(balance[0]["_coins"]["uluna"])/1000000
 
-    return [ rawBalance, humanReadableBalance]
+    return [ rawBalance, humanReadableBalance ]
 
 
 }
@@ -90,11 +90,6 @@ async function autoStake(terra, botConfig){
         info("No enouth luna rewards to collect yet")
     }
 
-
-
-
-
-
 }
 
 async function main(){
@@ -124,7 +119,6 @@ async function main(){
         await autoStake()
       }, interval);
     
-
 }
 
 main()
