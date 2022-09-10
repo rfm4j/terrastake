@@ -8,7 +8,7 @@ However, this is not an autostaking protocol, wich means, every time a LUNA hold
 
 > :warning: Use this bot at your own risk
 
-> :warning: This has only been tested with luna classic network
+> :warning: This has only been tested with terra classic network
 
 ## Installation
 
