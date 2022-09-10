@@ -61,5 +61,7 @@ To launch this bot, just type:
 npm start
 ```
 
+> Buy me a cofee: terra106aztmcnmpf7j40esj6rtwu7rwrwmd3lqj9eza
+
 ## License
 You can do whatever you want with this bot 
