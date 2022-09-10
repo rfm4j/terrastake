@@ -4,11 +4,11 @@ Terra is a Layer-1 blockchain protocol, using a delegated POS (proof-of-stake) c
 
 Any LUNA holder can delegate it's tokens to a validator, and get rewards in return (it's known as **staking**). This staking is done using the terra station platform.
 
-However, this is not an autostaking protocol, wich means, every time a LUNA holder want's to claim the rewards, and re-stake it, it has to be done manually.
+However, this is not an autostaking protocol, wich means, every time a LUNA holder want's to claim the rewards, and re-stake it, it has to be done manually. This bot is intended to automate it.
 
 > :warning: Use this bot at your own risk
 
-> :warning: This has only been tested with luna classic network
+> :warning: This has only been tested with terra classic network
 
 ## Installation
 
@@ -33,7 +33,7 @@ This is a really simple auto staking bot based on the logic:
 > :warning: WARNING: KEEP YOUR NEMO PRIVATE!!!
 
 
-Create a .env file in the root folder of the project, with the following content:
+Create a *<code>.env</code>* file in the root folder of the project, with the following content:
 
 ```properties
 # Your wallet address
@@ -60,6 +60,8 @@ To launch this bot, just type:
 ```bash
 npm start
 ```
+
+*Buy me a cofee:* <code>terra106aztmcnmpf7j40esj6rtwu7rwrwmd3lqj9eza</code>
 
 ## License
 You can do whatever you want with this bot 
