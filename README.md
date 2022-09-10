@@ -1,4 +1,4 @@
-# LUNA AUTOSTAKING BOT
+# LUNC AutoStaking Bot
 
 Terra is a Layer-1 blockchain protocol, using a delegated POS (proof-of-stake) consensus. This is validated by decentralized **validators**.
 
