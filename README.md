@@ -2,7 +2,7 @@
 
 Terra is a Layer-1 blockchain protocol, using a delegated POS (proof-of-stake) consensus. This is validated by decentralized **validators**.
 
-Any LUNA holder can delegate it's tokens to a validator, and get rewards in return (it's know as **staking**). This staking is done using the terra station platform.
+Any LUNA holder can delegate it's tokens to a validator, and get rewards in return (it's known as **staking**). This staking is done using the terra station platform.
 
 However, this is not an autostaking protocol, wich means, every time a LUNA holder want's to claim the rewards, and re-stake it, it has to be done manually.
 
