@@ -7,7 +7,7 @@ async function getWalletBalance(terra, botConfig){
     var balance = await terra.bank.balance(botConfig.walletAddress);
     var rawBalance = 0;
 
-    if(balance[0]["_coins"]["uluna"] !== 'undefined'){
+    if(balance[0]["_coins"]["uluna"] !== undefined){
         rawBalance=balance[0]["_coins"]["uluna"].amount
     }
     var humanReadableBalance=parseFloat(rawBalance)/1000000
