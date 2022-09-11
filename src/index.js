@@ -5,9 +5,12 @@ import { LCDClient, Coin, MsgWithdrawDelegatorReward, MnemonicKey, MsgSend, MsgD
 async function getWalletBalance(terra, botConfig){
 
     var balance = await terra.bank.balance(botConfig.walletAddress);
-    
-    var rawBalance=balance[0]["_coins"]["uluna"].amount
-    var humanReadableBalance=parseFloat(balance[0]["_coins"]["uluna"])/1000000
+    var rawBalance = 0;
+
+    if(balance[0]["_coins"]["uluna"] !== 'undefined'){
+        rawBalance=balance[0]["_coins"]["uluna"].amount
+    }
+    var humanReadableBalance=parseFloat(rawBalance)/1000000
 
     return [ rawBalance, humanReadableBalance ]
 
