@@ -1,6 +1,6 @@
 import BotConfig from './botConfig.js';
 import { info } from './utils/logger.js';
-import { LCDClient, Coin, MsgWithdrawDelegatorReward, MnemonicKey, MsgDelegate, MsgSwap } from '@terra-money/terra.js';
+import { LCDClient, Coin, MsgWithdrawDelegatorReward, MnemonicKey, MsgDelegate, MsgSwap, MsgExecuteContract } from '@terra-money/terra.js';
 
 async function parseWalletBalance(balance, symbol){
 
@@ -69,8 +69,8 @@ async function autoStake(terra, botConfig){
     let luncBalance = await parseWalletBalance(rawBalance, "uluna")
     let ustcBalance= await parseWalletBalance(rawBalance, "uusd")
     info("Current wallet balance: ")
-    info(humanReadable(luncBalance)+" USTC")
-    info(humanReadable(ustcBalance)+" LUNC")
+    info(humanReadable(luncBalance)+" LUNC")
+    info(humanReadable(ustcBalance)+" USTC")
     
     const rewards = await terra.distribution.rewards(botConfig.walletAddress)
 
@@ -80,6 +80,8 @@ async function autoStake(terra, botConfig){
 
 
     let wallet = getWallet(terra, botConfig)
+
+
     if(currentLunaRewards > botConfig.minLunaAmmount){
        if(botConfig.onlyDelegate){
         delegate(terra, wallet, botConfig)
