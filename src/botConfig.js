@@ -16,6 +16,10 @@ export default class BotConfig {
         this.chainId=process.env.CHAIN_ID;
         this.isClassic=(process.env.IS_CLASSIC === 'true');
         this.nemonic=process.env.WALLET_NEMO;
+        this.convertUstc=(process.env.CONVERT_USTC === 'true');
+        this.minUstcToKeep=process.env.MIN_USTC_TO_KEEP;
+        this.minUstcToConvert=process.env.MIN_USTC_TO_CONVERT;
+        this.onlyDelegate=(process.env.ONLY_DELEGATE === 'true');
 
         console.log(chalk.green("Bot config: "))
         console.log(chalk.green("---------------------"))
@@ -34,7 +38,11 @@ export default class BotConfig {
             { "Key" :"Schedule minutes", "Value" : this.scheduleMinutes},
             { "Key" :"Chain URL", "Value" : this.chainUrl},
             { "Key" :"ChainId", "Value" : this.chainId},
-            { "Key" :"Is classic", "Value" : this.isClassic}
+            { "Key" :"Is classic", "Value" : this.isClassic},
+            { "Key" :"Convert USTC", "Value" : this.convertUstc},
+            { "Key" :"Min USTC to Keep", "Value" : this.minUstcToKeep},
+            { "Key" :"Min USTC to Convert", "Value" : this.minUstcToConvert},
+            { "Key" :"Only Delegate", "Value" : this.onlyDelegate}
 
 
 

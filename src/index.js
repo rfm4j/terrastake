@@ -1,21 +1,23 @@
 import BotConfig from './botConfig.js';
 import { info } from './utils/logger.js';
-import { LCDClient, Coin, MsgWithdrawDelegatorReward, MnemonicKey, MsgSend, MsgDelegate } from '@terra-money/terra.js';
+import { LCDClient, Coin, MsgWithdrawDelegatorReward, MnemonicKey, MsgDelegate, MsgSwap } from '@terra-money/terra.js';
 
-async function getWalletBalance(terra, botConfig){
+async function parseWalletBalance(balance, symbol){
 
-    var balance = await terra.bank.balance(botConfig.walletAddress);
     var rawBalance = 0;
 
-    if(balance[0]["_coins"]["uluna"] !== undefined){
-        rawBalance=balance[0]["_coins"]["uluna"].amount
+    if(balance[0]["_coins"][symbol] !== undefined){
+        rawBalance=balance[0]["_coins"][symbol].amount
     }
-    var humanReadableBalance=parseFloat(rawBalance)/1000000
 
-    return [ rawBalance, humanReadableBalance ]
-
+    return rawBalance;
 
 }
+
+function humanReadable(rawBalance){
+    return parseFloat(rawBalance)/1000000;
+}
+
 
 function getWallet(terra, botConfig){
 
@@ -30,24 +32,59 @@ function getWallet(terra, botConfig){
 
 async function broadcastMessage(terra, wallet, messages){
 
-    return wallet.createAndSignTx({
+    return await wallet.createAndSignTx({
                 msgs: messages
             })
             .then(tx => terra.tx.broadcast(tx))
 
 }
 
-async function autoStake(terra, botConfig){
+async function delegate(terra, wallet, botConfig){
+    let rawBalance = await terra.bank.balance(botConfig.walletAddress);
+    let luncBalance = await parseWalletBalance(rawBalance, "uluna")
 
-    let [balance, humanReadableBalance] = await getWalletBalance(terra, botConfig)
-    info("Current luna balance: "+humanReadableBalance)
+
+    info("Current wallet balance: "+humanReadable(luncBalance))
+
+    info("Staking amount: "+luncBalance)
+    let delegateCoin = new Coin("uluna", luncBalance)
+
+    info("Staking: "+delegateCoin.toString())
+
+    info("Creating delegation message")
+
+    let delegateMsg = new MsgDelegate(botConfig.walletAddress, botConfig.validatorAddress, delegateCoin)
+
+    info("Delegate msg has been created")
+
+    console.log(delegateMsg)
+
+    broadcastMessage(terra, wallet, [delegateMsg]).then(result => {
+        info(`TX hash: ${result.txhash}`)
+    })
+}
+
+async function autoStake(terra, botConfig){
+    let rawBalance = await terra.bank.balance(botConfig.walletAddress);
+    let luncBalance = await parseWalletBalance(rawBalance, "uluna")
+    let ustcBalance= await parseWalletBalance(rawBalance, "uusd")
+    info("Current wallet balance: ")
+    info(humanReadable(luncBalance)+" USTC")
+    info(humanReadable(ustcBalance)+" LUNC")
+    
     const rewards = await terra.distribution.rewards(botConfig.walletAddress)
 
     const currentLunaRewards=parseFloat(rewards["rewards"][botConfig.validatorAddress]["_coins"]["uluna"]["amount"])/1000000
 
     info("Current luna rewards: "+currentLunaRewards)
 
+
+    let wallet = getWallet(terra, botConfig)
     if(currentLunaRewards > botConfig.minLunaAmmount){
+       if(botConfig.onlyDelegate){
+        delegate(terra, wallet, botConfig)
+       } 
+       else {
         info("Starting reward collection")
 
         info("Creating claim message")
@@ -57,38 +94,18 @@ async function autoStake(terra, botConfig){
 
         info("Claim message has been created")
 
-        
-        let wallet = getWallet(terra, botConfig)
-
         broadcastMessage(terra, wallet,[withdrawMessage])
             .then(async result => {
                 info(`TX hash: ${result.txhash}`)
 
                 info("Claim has been done")
 
-                let [balance, humanReadableBalance] = await getWalletBalance(terra, botConfig)
+                delegate(terra, wallet, botConfig)
 
-                info("Current wallet balance: "+humanReadableBalance)
-
-                info("Staking amount: "+balance)
-                let delegateCoin = new Coin("uluna", balance)
-
-                info("Staking: "+delegateCoin.toString())
-
-                info("Creating delegation message")
-
-                let delegateMsg = new MsgDelegate(botConfig.walletAddress, botConfig.validatorAddress, delegateCoin)
-
-                info("Delegate msg has been created")
-
-                console.log(delegateMsg)
-
-                broadcastMessage(terra, wallet, [delegateMsg]).then(result => {
-                    info(`TX hash: ${result.txhash}`)
-                }
-                )
+                
             })
 
+       }
     } else {
         info("No enouth luna rewards to collect yet")
     }
