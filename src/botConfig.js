@@ -10,6 +10,7 @@ export default class BotConfig {
         dotenv.config()
         this.walletAddress=process.env.WALLET_ADDRESS;
         this.validatorAddress=process.env.VALIDATOR_ADDRESS;
+        this.validatorDelegateAddress=process.env.VALIDATOR_DELEGATE_ADDRESS;
         this.minLunaAmmount=parseFloat(process.env.MIN_LUNA_REWARD_AMMOUNT);
         this.scheduleMinutes=process.env.MINUTES_SCHEDULE;
         this.chainUrl=process.env.CHAIN_URL;
@@ -34,6 +35,7 @@ export default class BotConfig {
         p.addRows([
             { "Key" : "Wallet Address", "Value" : this.walletAddress},
             { "Key" :"Validator Address", "Value" : this.validatorAddress},
+            { "Key" :"ValidatorDelegate Address", "Value" : this.validatorDelegateAddress},
             { "Key" :"Luna reward to claim ", "Value" : this.minLunaAmmount},
             { "Key" :"Schedule minutes", "Value" : this.scheduleMinutes},
             { "Key" :"Chain URL", "Value" : this.chainUrl},

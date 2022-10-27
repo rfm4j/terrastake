@@ -53,7 +53,7 @@ async function delegate(terra, wallet, botConfig){
 
     info("Creating delegation message")
 
-    let delegateMsg = new MsgDelegate(botConfig.walletAddress, botConfig.validatorAddress, delegateCoin)
+    let delegateMsg = new MsgDelegate(botConfig.walletAddress, botConfig.validatorDelegateAddress, delegateCoin)
 
     info("Delegate msg has been created")
 
@@ -74,7 +74,9 @@ async function autoStake(terra, botConfig){
     
     const rewards = await terra.distribution.rewards(botConfig.walletAddress)
 
-    const currentLunaRewards=parseFloat(rewards["rewards"][botConfig.validatorAddress]["_coins"]["uluna"]["amount"])/1000000
+    console.log(rewards)
+
+    const currentLunaRewards=parseFloat(rewards["total"]["_coins"]["uluna"]["amount"])/1000000
 
     info("Current luna rewards: "+currentLunaRewards)
 
