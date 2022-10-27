@@ -17,3 +17,7 @@ function formatConsoleDate () {
 export function info(message){
     console.log("[INFO] ["+formatConsoleDate()+"] "+message);
 }
+
+export function error(message){
+    console.log("[ERROR] ["+formatConsoleDate()+"] "+message);
+}

@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import { info } from './utils/logger.js';
+import { info, error } from './utils/logger.js';
 import chalk from 'chalk';
 import { Table } from 'console-table-printer';
 
@@ -8,6 +8,14 @@ export default class BotConfig {
 
     constructor(){
         dotenv.config()
+        const args = process.argv.slice(2);
+        let VALIDATOR_NAME=args[0];
+        if (VALIDATOR_NAME === "undefined"){
+          error("Missing validator")
+          process.exit(1)
+        }
+        
+        dotenv.config({ path: `.env.${VALIDATOR_NAME}`, override: true })
         this.walletAddress=process.env.WALLET_ADDRESS;
         this.validatorAddress=process.env.VALIDATOR_ADDRESS;
         this.validatorDelegateAddress=process.env.VALIDATOR_DELEGATE_ADDRESS;
