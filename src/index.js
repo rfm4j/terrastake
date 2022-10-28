@@ -46,7 +46,7 @@ async function delegate(terra, wallet, botConfig){
 
     info("Current wallet balance: "+humanReadable(luncBalance))
 
-    if(luncBalance > this.botConfig.walletMinLuncToDelegate){
+    if(luncBalance > botConfig.walletMinLuncToDelegate){
       info("Staking amount: "+luncBalance)
       let delegateCoin = new Coin("uluna", luncBalance)
 
