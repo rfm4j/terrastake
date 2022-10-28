@@ -46,22 +46,29 @@ async function delegate(terra, wallet, botConfig){
 
     info("Current wallet balance: "+humanReadable(luncBalance))
 
-    info("Staking amount: "+luncBalance)
-    let delegateCoin = new Coin("uluna", luncBalance)
+    if(luncBalance > this.botConfig.walletMinLuncToDelegate){
+      info("Staking amount: "+luncBalance)
+      let delegateCoin = new Coin("uluna", luncBalance)
 
-    info("Staking: "+delegateCoin.toString())
+      info("Staking: "+delegateCoin.toString())
 
-    info("Creating delegation message")
+      info("Creating delegation message")
 
-    let delegateMsg = new MsgDelegate(botConfig.walletAddress, botConfig.validatorAddress, delegateCoin)
+      let delegateMsg = new MsgDelegate(botConfig.walletAddress, botConfig.validatorAddress, delegateCoin)
 
-    info("Delegate msg has been created")
+      info("Delegate msg has been created")
 
-    console.log(delegateMsg)
+      console.log(delegateMsg)
 
-    broadcastMessage(terra, wallet, [delegateMsg]).then(result => {
-        info(`TX hash: ${result.txhash}`)
-    })
+      broadcastMessage(terra, wallet, [delegateMsg]).then(result => {
+          info(`TX hash: ${result.txhash}`)
+      })
+
+    } else {
+      info(`Not enought LUNC balance ${luncBalance} in wallet.`)
+    }
+
+    
 }
 
 async function autoStake(terra, botConfig){

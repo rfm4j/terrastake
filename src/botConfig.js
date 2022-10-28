@@ -17,6 +17,7 @@ export default class BotConfig {
         
         dotenv.config({ path: `.env.${VALIDATOR_NAME}`, override: true })
         this.walletAddress=process.env.WALLET_ADDRESS;
+        this.walletMinLuncToDelegate=parseFloat(process.env.WALLET_MIN_LUNC_TO_DELEGATE);
         this.validatorAddress=process.env.VALIDATOR_ADDRESS;
         this.validatorDelegateAddress=process.env.VALIDATOR_DELEGATE_ADDRESS;
         this.minLunaAmmount=parseFloat(process.env.MIN_LUNA_REWARD_AMMOUNT);
