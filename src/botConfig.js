@@ -46,6 +46,7 @@ export default class BotConfig {
             { "Key" :"Validator Address", "Value" : this.validatorAddress},
             { "Key" :"ValidatorDelegate Address", "Value" : this.validatorDelegateAddress},
             { "Key" :"Luna reward to claim ", "Value" : this.minLunaAmmount},
+            { "Key" :"Min LUNC wallet balance to stake", "Value" : this.walletMinLuncToDelegate},
             { "Key" :"Schedule minutes", "Value" : this.scheduleMinutes},
             { "Key" :"Chain URL", "Value" : this.chainUrl},
             { "Key" :"ChainId", "Value" : this.chainId},
